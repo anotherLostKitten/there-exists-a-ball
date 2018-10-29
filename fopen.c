@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 int main() {
+  printf("reading ints from random...\n");
   int myfile = open("/dev/random",O_RDONLY);
   if(myfile==-1)
     printf("something is amiss with your random file... errno: %s\n", strerror(errno));
@@ -15,9 +16,11 @@ int main() {
     close(myfile);
     for (char i = 0; i < 10; i++)
       printf("random number %d: %u\n", i, mine[i]);
+    printf("writing to a file...\n");
     int copy = open("filey mcfileface", O_WRONLY | O_CREAT, 0644);
     write(copy, mine, sizeof(int)*10);
     close(copy);
+    printf("and here they are again...\n");
     int boppy = open("filey mcfileface", O_RDONLY);
     read(boppy, mime, sizeof(int)*10);
     for (char i = 0; i < 10; i++)
